@@ -23,7 +23,8 @@ INSTALLED_APPS = [
     'blog',
     'config',
     'comment',
-    
+    'typeidea',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
