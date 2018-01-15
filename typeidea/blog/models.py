@@ -59,10 +59,17 @@ class Post(models.Model):
     content = models.TextField(verbose_name="正文", help_text="正文必须为MarkDown格式")
     status = models.PositiveIntegerField(default=1, choices=STATUS_ITEMS, verbose_name="状态")
     category = models.ForeignKey(Category, verbose_name="分类")
-    tag = models.ManyToManyField(Tag, verbose_name="标签")
+    tags = models.ManyToManyField(Tag, verbose_name="标签")
 
     owner = models.ForeignKey(User, verbose_name="作者")
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
+
+    def status_show(self):
+        return '当前状态:%s' %self.status 
+    status_show.short_description = '展示状态'
+    
+    def __unicode__(self):
+        return self.title 
 
     class Meta:
         verbose_name = verbose_name_plural = "文章"
