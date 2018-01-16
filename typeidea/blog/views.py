@@ -6,11 +6,39 @@ from django.core.paginator import Paginator, EmptyPage
 from django.http import Http404 
 from django.shortcuts import render 
 
-from .models import Post,Tag
+from .models import Post,Tag,Category 
+from config.models import SideBar 
+from comment.models import Comment 
+
+def get_common_context():
+    categories = Category.objects.filter(status=1)
+
+    nav_cates=[]
+    cates = []
+    for cate in categories:
+        if cate.is_nav:
+            nav_cates.append(cate)
+        else:
+            cates.append(cate)
+    
+    side_bars = SideBar.objects.filter(status=1)
+    
+    recently_posts = Post.objects.filter(status=1)[:10]
+    #`hot_posts = Post.objects.filter(status=1).order_by('views')[:10]
+    recently_comments = Comment.objects.filter(status=1)[:10]
+
+    context = {
+        'nav_cates':nav_cates,
+        'cates':cates,
+        'side_bars':side_bars,
+        'recently_comments':recently_comments,
+        'recently_posts':recently_posts,
+    }
+    return context
+
 
 
 def post_list(request, category_id=None, tag_id=None):
-    queryset = Post.objects.all()
 
     page = request.GET.get('page',1)
     page_size = 4
@@ -19,6 +47,7 @@ def post_list(request, category_id=None, tag_id=None):
     except TypeError:
         page = 1
 
+    queryset = Post.objects.all()
     if category_id:
         #分页页面
         queryset = Post.objects.filter(category_id=category_id)
@@ -40,9 +69,12 @@ def post_list(request, category_id=None, tag_id=None):
     #print(len(posts))          #把posts变成长度，才能执行到下面的部分
     #print(connection.queries)  #输出数据库的语句，看如何执行
     #import pdb;pdb.set_trace() #断点调试
+
     context = {
         'posts':posts,
     }
+    common_context = get_common_context()
+    context.update(common_context)
     return render(request, 'blog/list.html', context=context)
 
 def post_detail(request, pk=None):
@@ -54,4 +86,6 @@ def post_detail(request, pk=None):
     context = {
         'post':post,
     }
+    common_context = get_common_context()
+    context.update(common_context)
     return render(request, 'blog/detail.html', context=context)
