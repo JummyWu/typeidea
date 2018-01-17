@@ -8,13 +8,43 @@ from .models import Post,Tag,Category
 from config.models import SideBar 
 from comment.models import Comment
 
-class BasePostsView(ListView):
+class CommonMixin(object):
+    def get_context_data(self):
+        categories = Category.objects.filter(status=1)
+
+        nav_cates=[]
+        cates = []
+        for cate in categories:
+            if cate.is_nav:
+                nav_cates.append(cate)
+            else:
+                cates.append(cate)
+        
+        side_bars = SideBar.objects.filter(status=1)
+        
+        recently_posts = Post.objects.filter(status=1)[:10]
+        #`hot_posts = Post.objects.filter(status=1).order_by('views')[:10]
+        recently_comments = Comment.objects.filter(status=1)[:10]
+
+        extra_context = {
+            'nav_cates':nav_cates,
+            'cates':cates,
+            'side_bars':side_bars,
+            'recently_comments':recently_comments,
+            'recently_posts':recently_posts,
+        }
+        return super(CommonMixin,self).get_context_data(**extra_context)
+
+
+class BasePostsView(CommonMixin, ListView):
     model = Post
     template_name = 'blog/list.html'
     context_object_name = 'posts'
+    paginate_by = 3 #分页
 
 class IndexView(BasePostsView):
     pass
+
 
 class CategoryView(BasePostsView):
     def get_queryset(self):
@@ -22,6 +52,7 @@ class CategoryView(BasePostsView):
         cate_id = self.kwargs.get('category_id')
         qs = qs.filter(Category_id=cate_id)
         return qs
+
 
 class TagView(BasePostsView):
     def get_queryset(self):
@@ -33,38 +64,20 @@ class TagView(BasePostsView):
         posts = tag.posts.all()
         return posts 
 
-class PostView(DetailView):
+
+class AuthorView(BasePostsView):
+    def get_queryset(self):
+        qs = super(AuthorView, self).get_queryset()
+        author_id = self.request.GET.get('author_id')
+        if author_id:
+            qs = qs.filter(owner_id = author_id)
+        return qs 
+
+
+class PostView(CommonMixin, DetailView):
     model = Post
     template_name = 'blog/detail.html'
     context_object_name = 'post'
-
-
-
-def get_common_context():
-    categories = Category.objects.filter(status=1)
-
-    nav_cates=[]
-    cates = []
-    for cate in categories:
-        if cate.is_nav:
-            nav_cates.append(cate)
-        else:
-            cates.append(cate)
-    
-    side_bars = SideBar.objects.filter(status=1)
-    
-    recently_posts = Post.objects.filter(status=1)[:10]
-    #`hot_posts = Post.objects.filter(status=1).order_by('views')[:10]
-    recently_comments = Comment.objects.filter(status=1)[:10]
-
-    context = {
-        'nav_cates':nav_cates,
-        'cates':cates,
-        'side_bars':side_bars,
-        'recently_comments':recently_comments,
-        'recently_posts':recently_posts,
-    }
-    return context
 
 
 
