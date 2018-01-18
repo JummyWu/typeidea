@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="utf-8">
 <head>
@@ -6,94 +7,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="{% static 'css/base.css' %}"> 
     <title>Hello, world!</title>
-    <style>
-    .banner{
-        margin-top: 40px;
-    }
-    nav.category a {
-        margin-top: 20px;
-        margin-right: 20px;
-    }
-    .post-element-nav {
-        padding-top: 0;
-        padding-bottom: 0;
-        color:#428bca;
-    }
-    .post-element-title{
-        font-size: 25px;
-        border-bottom:1px solid #ccc;
-    }
-    .post-element-title a {
-        color: #333;
-    }
-    .post-element-desc {
-        padding: 1rem;
-    }
-    .main {
-        margin-top: 25px;
-    }
-    .main ul {
-        padding-left: 0px;
-    }
-    .post-element article {
-        margin-top: 10px;
-    }
-    .power{
-        margin-top: 30px;
-    }
-    .sidebar li {
-        list-style: none;
-    }
-    .sidebar a {
-        color: #444;
-    }
-    </style>
 </head>
 <body>
-    <header>
-    
+    <header class="fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-9">
+                    <nav class="nav">
+                        <a class="logo" href="/">Typeidea</a>
+                        <a class="index" href="/">首页</a>
+
+                        {% for cate in nav_cates %}
+                        <a class="link" href="{% url 'category' cate.id %}">{{ cate.name }}</a>
+                        {% endfor %}
+                    </nav>
+                </div>
+                <div class="col-3">
+                    <div class="input-group search">
+                        <input typt="text" class="form-control" placeholder="Search for..." aria-label="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-secondary" type="button">GO!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
-    <div class="container">
-        <h3>    
-        typeidea blog - by jummy
-            <small class="text-muted">--基于Django开发的博客</small>
-        </h3>
-    </div>
-    <div class="container"> 
-        <nav class="nav category" style="border-bottom: 1px solid #ccc; padding-bottom: 3px;">
-            <a href="/">首页</a>
-            {% for cate in nav_cates %}
-            <a href="{% url 'category' cate.id %}">{{ cate.name }}</a>
-            {% endfor %}
-        </nav>
-        </ul>
-    </div>
 
     <div class="container main">
         <div class="row">
-            <div class="col-9">
-                {% block content %}
+            <div class="col-9 left-side">
+                <div class="inner">
+                    {% block content %}
                 {% endblock %}
+                </div>
             </div>
-            <div class="col-3">
-                {% for side in side_bars %}
-                <div class="container sidebar">
-                <h4>{{ side.title }} </h4>
-                <div>
-                    {% if side.display_type == 1 %}
-                    {% autoescape off %}
-                    {{ side.content }}
-                    {% endautoescape %}
-                    {% elif side.display_type == 2 %}
-                    <ul>
-                        {% for post in recently_posts %}
-                        <li><a href="{% url 'detail' post.id %}">{{ post.title }}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% elif side.display_type == 4 %}
-                    <ul>
-                    {% for comment in recently_comments %}
+            <div class="col-3 right-side">
+                <div class="inner">
+                    {% for side in side_bars %}
+                    <div class="sidebar">
+                        <div class="sidebar-title">{{ side.title }} </div>
+                        <div class="sidebar-content">
+                            {% if side.display_type == 1 %}
+                            {% autoescape off %}
+                            {{ side.content }}
+                            {% endautoescape %}
+                            {% elif side.display_type == 2 %}
+                            <ul>
+                                {% for post in recently_posts %}
+                                <li><a href="{% url 'detail' post.id %}">{{ post.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% elif side.display_type == 4 %}
+                            <ul>
+                                {% for comment in recently_comments %}
                     <li>{{ comment.context }}</li>
                     {% endfor %}
                     </ul>
@@ -101,6 +70,7 @@
                 </div>
                 </div>
                 {% endfor %}
+                </div>
             </div>
         </div>
     </div>

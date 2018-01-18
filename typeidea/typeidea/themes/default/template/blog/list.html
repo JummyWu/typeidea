@@ -1,11 +1,10 @@
 {% extends "./base.html" %}
 
 {% block content %}
-<ul>
-    {% if posts %}
-    {% for post in posts %}
-    <div class="post-element">
-        <h3 class="post-element-title">
+{% if posts %}
+{% for post in posts %}
+<div class="post-element">
+    <h3 class="post-element-title">
         <a href="{% url 'detail' post.id %}">{{ post.title }}</a>
     </h3>
     <div>
@@ -21,6 +20,7 @@
     <div class="post-element-desc">
         <p>{{ post.desc }}</p>
     </div>
+</div>
     {% endfor %}
     {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">上一页</a>{% endif %}
     Page{{ page_obj.number }} of {{ paginator.num_pages }}.
@@ -28,5 +28,4 @@
     {% else %}
     Empty!!
     {% endif %}
-</ul>
-{% endblock %}
+    {% endblock %}
