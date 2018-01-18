@@ -1,0 +1,22 @@
+{% extends "../blog/base.html" %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Logo</th>
+            <th scope="col">网站</th>
+            <th scope="col">描述</th>
+        </tr>
+    </thead>
+    <thody>
+        {% for link in links %}
+        <tr>
+            <th><img height=25 src="{{ link.href }}/favicon.ico"/></th>
+            <th><a href="{{ link.href }}" target="_blank">{{ link.title }}</a></th>
+            <th></th>
+        </tr>
+        {% endfor %}
+    </thody>
+</table>
+{% endblock %}

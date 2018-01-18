@@ -8,6 +8,7 @@ from django.views.generic import ListView, DetailView
 from .models import Post,Tag,Category 
 from config.models import SideBar 
 from comment.models import Comment
+from comment.forms import CommentForm 
 
 
 class CommonMixin(object):
@@ -50,7 +51,16 @@ class BasePostsView(CommonMixin, ListView):
 
 
 class IndexView(BasePostsView):
-    pass
+    def get_queryset(self):
+        query = self.request.GET.get('query')
+        qs = super(IndexView, self).get_queryset()
+        if query:
+            qs =  qs.filter(title__icontains=query) #select * from blog_post where title ilike '%query%'
+        return qs
+   
+    def get_context_data(self,**kwargs):
+        query = self.request.GET.get('query')
+        return super(IndexView, self).get_context_data(query=query)
 
 
 class CategoryView(BasePostsView):
@@ -63,7 +73,7 @@ class CategoryView(BasePostsView):
 
 class TagView(BasePostsView):
     def get_queryset(self):
-        tag_id = self.kwargs('tag_id')
+        tag_id = self.kwargs.get('tag_id')
         try:
             tag = Tag.objects.get(id=tag_id)
         except Tag.DoesNotExist:
@@ -74,6 +84,7 @@ class TagView(BasePostsView):
 
 class AuthorView(BasePostsView):
     def get_queryset(self):
+        author_id = self.kwargs.get('author_id')
         qs = super(AuthorView, self).get_queryset()
         author_id = self.request.GET.get('author_id')
         if author_id:
@@ -85,4 +96,10 @@ class PostView(CommonMixin, DetailView):
     model = Post
     template_name = 'blog/detail.html'
     context_object_name = 'post'
-
+    
+    def get_context_data(self, **kwargs):
+        kwargs.update({
+            'comment_form':CommentForm()  
+        })
+        return super(PostView, self).get_context_data(**kwargs)
+    

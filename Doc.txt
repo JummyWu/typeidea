@@ -1,0 +1,5 @@
+1.list view获取url参数：https://docs.djangoproject.com/en/1.11/topics/class-based-views/generic-display/#dynamic-filtering
+
+2.list view详细介绍：https://docs.djangoproject.com/en/1.11/ref/class-based-views/generic-display/#django.views.generic.list.ListView
+
+3.view源码：https://github.com/django/django/blob/1.11.6/django/views/generic/base.py#L28
