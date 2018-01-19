@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import markdown
 from django.contrib.auth.models import User
 from django.db import models 
 
@@ -15,6 +16,8 @@ class Post(models.Model):
     title = models.CharField(max_length=255, verbose_name="标题")
     desc = models.CharField(max_length=1024, blank=True, verbose_name="摘要")
     content = models.TextField(verbose_name="正文", help_text="正文必须为MarkDown格式")
+    html  = models.TextField(verbose_name="渲染后的数据", default="", help_text="目前支持Markdown格式")
+    is_markdown = models.BooleanField(verbose_name="使用markdown格式",default=True)
     status = models.PositiveIntegerField(default=1, choices=STATUS_ITEMS, verbose_name="状态")
     category = models.ForeignKey('Category', verbose_name="分类")
     tags = models.ManyToManyField('Tag',related_name="posts", verbose_name="标签")
@@ -28,6 +31,17 @@ class Post(models.Model):
     
     def __unicode__(self):
         return self.title 
+
+    def save(self, *args, **kwargs):
+        if self.is_markdown:
+            config = {
+                'codehilite':{
+                    'use_pygments':False,
+                    'css_class':'prettyprint linenums',
+                }
+            }
+            self.html = markdown.markdown(self.content,extensions=['codehilite'], extension_configs=config)
+        return super(Post, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = verbose_name_plural = "文章"
