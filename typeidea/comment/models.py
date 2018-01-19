@@ -9,7 +9,7 @@ class Comment(models.Model):
         (1,'正常'),
         (2,'删除'),
     )
-    target = models.CharField(max_length=200, null=True,verbose_name="评论目标")
+    target = models.CharField(max_length=200,verbose_name="评论目标")
     content = models.CharField(max_length=2000, verbose_name="内容")
     nickname = models.CharField(max_length=50, verbose_name="昵称")
     website = models.URLField(verbose_name="网站")
