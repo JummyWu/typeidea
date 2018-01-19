@@ -62,24 +62,30 @@
                                 <li><a href="{% url 'detail' post.id %}">{{ post.title }}</a></li>
                                 {% endfor %}
                             </ul>
+                            {% elif side.display_type == 3 %}
+                            <ul>
+                                {% for post in hot_posts %}
+                                <li><a href="{% url 'detail' post.id %}">{{ post.title }}-{{ post.pv }}</a></li>
+                                {% endfor %}
+                            </ul>
                             {% elif side.display_type == 4 %}
                             <ul>
                                 {% for comment in recently_comments %}
-                    <li>{{ comment.context }}</li>
+                                <li>{{ comment.context }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
                     {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                </div>
-                {% endfor %}
                 </div>
             </div>
         </div>
     </div>
 
-<footer class="footer">
-    <div class="container">
-        <hr/>
+    <footer class="footer">
+        <div class="container">
+            <hr/>
         <nav class="nav category">
             {% for cate in cates %}
             <a href="{% url 'category' cate.id %}">{{ cate.name }}</a>

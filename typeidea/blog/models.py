@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import markdown
+from django.db.models import F
 from django.contrib.auth.models import User
 from django.db import models 
 
@@ -21,8 +22,10 @@ class Post(models.Model):
     status = models.PositiveIntegerField(default=1, choices=STATUS_ITEMS, verbose_name="状态")
     category = models.ForeignKey('Category', verbose_name="分类")
     tags = models.ManyToManyField('Tag',related_name="posts", verbose_name="标签")
-
     owner = models.ForeignKey(User, verbose_name="作者")
+    pv = models.PositiveIntegerField(default=0, verbose_name="pv")
+    uv = models.PositiveIntegerField(default=0, verbose_name="uv")
+
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     def status_show(self):
@@ -31,6 +34,11 @@ class Post(models.Model):
     
     def __unicode__(self):
         return self.title 
+    def increase_pv(self):
+        return type(self).objects.filter(id=self.id).update(pv=F('pv') + 1)
+
+    def increase_uv(self):
+        return type(self).objects.filter(id=self.id).update(pv=F('uv') + 1)
 
     def save(self, *args, **kwargs):
         if self.is_markdown:
