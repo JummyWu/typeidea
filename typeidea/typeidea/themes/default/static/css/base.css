@@ -91,6 +91,10 @@ nav.category a {
 .sidebar-content {
     padding: 0 9px;
 }
+/*脚部分*/
+.footer {
+    text-align: center;
+}
 /* 评论 */
 .comment .nickname a {
     font-size:1.5rem;

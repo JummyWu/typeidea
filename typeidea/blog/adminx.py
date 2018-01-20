@@ -16,7 +16,7 @@ class PostAdmin(BaseOwnerAdmin):
 
     list_display = [
         'title','category','status_show',
-        'pv','uv','owner',
+        'pv','uv',
         'created_time','operator'
     ]
     list_display_links = []
@@ -26,7 +26,7 @@ class PostAdmin(BaseOwnerAdmin):
     search_fields = ['title','category__name']
     
     save_on_top = True
-    show_full_result_count = False
+    #show_full_result_count = False
     
     actions_on_top = True
     actions_on_bottom = True
