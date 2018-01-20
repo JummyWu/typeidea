@@ -2,16 +2,15 @@
 from __future__ import unicode_literals
 
 
-from django.contrib import admin
+import xadmin
 from django.urls import reverse 
 from django.utils.html import format_html
+from xadmin.layout import Fieldset, Row
 
 from .adminform import PostAdminForm 
 from .models import Post, Category, Tag
-from typeidea.custom_site import custom_site
-from typeidea.custom_admin import BaseOwnerAdmin 
+from typeidea.adminx import BaseOwnerAdmin 
 
-@admin.register(Post, site=custom_site)
 class PostAdmin(BaseOwnerAdmin):
     form = PostAdminForm 
 
@@ -21,8 +20,9 @@ class PostAdmin(BaseOwnerAdmin):
         'created_time','operator'
     ]
     list_display_links = []
+    exclude =('html', 'owner', 'pv', 'uv')
 
-    list_filter = ['category','owner']
+    list_filter = ['category',]
     search_fields = ['title','category__name']
     
     save_on_top = True
@@ -34,14 +34,17 @@ class PostAdmin(BaseOwnerAdmin):
     #编辑页面
     save_on_top = True
     
-    fields = (
-        ('category','title'),
+    form_layout = (
+        Fieldset(
+        "基础信息",
+        'title',
         'desc',
-        'status',
-        ('content','is_markdown'),
-        #'html',
+        Row('category','status','is_markdown'),
+        'content',
         'tags',
+        ),
     )
+
 
     def operator(self,obj):
         return format_html(
@@ -50,8 +53,9 @@ class PostAdmin(BaseOwnerAdmin):
         )
     operator.short_description = '操作'
 
+xadmin.site.register(Post,PostAdmin)
 
-@admin.register(Category, site=custom_site)
+
 class CategoryAdmin(BaseOwnerAdmin):
     list_display=['name','status','is_nav', 'created_time']
     fields = (
@@ -59,9 +63,13 @@ class CategoryAdmin(BaseOwnerAdmin):
         'is_nav',
     )
 
-@admin.register(Tag, site=custom_site)
+xadmin.site.register(Category,CategoryAdmin)
+
+
 class TagAdmin(BaseOwnerAdmin):
     list_display=['name','status','created_time']
     fields = (
         'name','status'
     )
+
+xadmin.site.register(Tag,TagAdmin)

@@ -1,20 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-
-from django.contrib import admin
+import xadmin
 
 
 from .models import Link, SideBar
-from typeidea.custom_site import custom_site 
+from typeidea.adminx import BaseOwnerAdmin  
 
 
-@admin.register(Link, site=custom_site)
-class LinkAdmin(admin.ModelAdmin):
+class LinkAdmin(BaseOwnerAdmin):
     list_display=['title','href','status','weight','created_time']
 
+xadmin.site.register(Link,LinkAdmin)
 
-@admin.register(SideBar, site=custom_site)
-class SideBarAdmin(admin.ModelAdmin):
+class SideBarAdmin(BaseOwnerAdmin):
     list_display=['title','display_type','content','created_time']
 
+xadmin.site.register(SideBar,SideBarAdmin)
