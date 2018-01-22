@@ -28,6 +28,9 @@ INSTALLED_APPS = [
     'dal',
     'dal_select2',
 
+    'ckeditor',
+    'ckeditor_uploader',
+
     'xadmin',
     'crispy_forms',
     'reversion',
@@ -127,6 +130,18 @@ TEMPLATES = [
         },
     },
 ]
-
+CKEDITOR_CONFIGS = { 
+    'default': { 
+        'toolbar': 'full', 
+        'height': 300, 
+        'width': 600, 
+    },
+}
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CKEDITOR_UPLOAD_PATH = 'article_images'
+DEFAULT_FILE_STORAGE = 'typeidea.storage.MyFileSystemStorage'
 #XADMIN_TITLE = 'Typeidea'
 #XADMIN_FOOTER_TITLE = 'Typeidea @ jummy.top'
