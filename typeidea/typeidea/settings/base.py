@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
 
+    'rest_framework',
+
     'xadmin',
     'crispy_forms',
     'reversion',
@@ -143,5 +145,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_UPLOAD_PATH = 'article_images'
 DEFAULT_FILE_STORAGE = 'typeidea.storage.MyStorage'
+
+REST_FRAMEWORK = {
+        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+        'PAGE_SIZE': 3
+}
 #XADMIN_TITLE = 'Typeidea'
 #XADMIN_FOOTER_TITLE = 'Typeidea @ jummy.top'
