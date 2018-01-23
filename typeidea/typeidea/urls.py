@@ -3,12 +3,11 @@ from __future__ import unicode_literals
 
 import xadmin 
 xadmin.autodiscover()
-from ckeditor_uploader import urls as uploader_urls
 from xadmin.plugins import xversion
 xversion.register_models()
 from django.conf.urls.static import static
 from django.conf import settings
-from django.conf.urls import url
+from django.conf.urls import url, include 
 
 from blog.views import IndexView, CategoryView, TagView, PostView, AuthorView
 from config.views import LinkView  
@@ -28,5 +27,6 @@ urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
     url(r'^category-autocomplete/$', CategoryAutocomplete.as_view(), name="category-autocomplete"),
     url(r'tag-autocomplete/$', TagAutocomplete.as_view(),name="tag-autocomplete"),
+    url(r'ckeditor/',include('ckeditor_uploader.urls')),
 
-] + uploader_urls.urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

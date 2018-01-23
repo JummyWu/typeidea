@@ -142,6 +142,6 @@ CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_UPLOAD_PATH = 'article_images'
-DEFAULT_FILE_STORAGE = 'typeidea.storage.MyFileSystemStorage'
+DEFAULT_FILE_STORAGE = 'typeidea.storage.MyStorage'
 #XADMIN_TITLE = 'Typeidea'
 #XADMIN_FOOTER_TITLE = 'Typeidea @ jummy.top'
