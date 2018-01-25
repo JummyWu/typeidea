@@ -20,6 +20,21 @@ CACHES = {
         }
 }
 
+INSTALLED_APPS += [
+    'debug_toolbar',
+    'silk',
+]
+
+MIDDLEWARE += [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'silk.middleware.SilkyMiddleware',
+]
+
+INTERNAL_IPS = ['127.0.0.1']
+SILKY_PYTHON_PROFILER = True
+DEBUG_TOOLBAR_CONFIG = {
+    'JQUERY_URL':'//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'
+}
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

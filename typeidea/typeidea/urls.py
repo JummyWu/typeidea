@@ -1,11 +1,12 @@
 # coding:utf-8
 from __future__ import unicode_literals 
 
+import re 
 import xadmin 
 xadmin.autodiscover()
 from xadmin.plugins import xversion
 xversion.register_models()
-from django.conf.urls.static import static
+from django.views.static import serve
 from django.conf import settings
 from django.conf.urls import url, include 
 from rest_framework import routers
@@ -24,6 +25,11 @@ router.register(r'category',CategoryViewSet)
 router.register(r'tag',TagViewSet)
 router.register(r'user',UserViewSet)
 
+def static(prefix, **kwargs):
+    return [
+        url(r'^%s(?P<path>.*)$' %re.escape(prefix.lstrip('/')), serve, kwargs=kwargs)
+    ]
+
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name="index"),
     url(r'^category/(?P<category_id>\d+)/',CategoryView.as_view(), name="category"),
@@ -38,5 +44,11 @@ urlpatterns = [
     url(r'ckeditor/',include('ckeditor_uploader.urls')),
     url(r'^api/docs/', include_docs_urls(title='typeidea apis')),
     url(r'^api/',include(router.urls)),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+        url(r'^silk/',include('silk.urls',namespace='silk')),
+    ] + urlpatterns 

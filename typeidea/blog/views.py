@@ -5,6 +5,7 @@ import logging
 #from django.db import connection #引入数据库的列表
 from django.core.cache import cache
 from django.views.generic import ListView, DetailView
+from silk.profiling.profiler import silk_profile
 
 
 from .models import Post,Tag,Category 
@@ -15,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class CommonMixin(object):
+    @silk_profile(name='get_category_context')
     def get_category_context(self):
         categories = Category.objects.filter(status=1)
 
