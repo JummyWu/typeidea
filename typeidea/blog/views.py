@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import logging
 #from django.db import connection #引入数据库的列表
 from django.core.cache import cache
 from django.views.generic import ListView, DetailView
@@ -10,6 +11,8 @@ from .models import Post,Tag,Category
 from config.models import SideBar 
 from comment.models import Comment
 from comment.views import CommentShowMixin 
+logger = logging.getLogger(__name__)
+
 
 class CommonMixin(object):
     def get_category_context(self):
@@ -49,13 +52,26 @@ class BasePostsView(CommonMixin, ListView):
     context_object_name = 'posts'
     paginate_by = 3 #分页
 
+def time_it(func):
+    import time
+
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        print(func.__name__,'cost',time.time() - start)
+        return result
+    return wrapper 
+
 
 class IndexView(BasePostsView):
+    @time_it
     def get_queryset(self):
         query = self.request.GET.get('query')
+        logger.info('query:[%s]', query)
         qs = super(IndexView, self).get_queryset()
         if query:
             qs =  qs.filter(title__icontains=query) #select * from blog_post where title ilike '%query%'
+        logger.info('query result:[%s]', qs)
         return qs
    
     def get_context_data(self,**kwargs):
