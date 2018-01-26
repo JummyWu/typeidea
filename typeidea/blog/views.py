@@ -5,7 +5,7 @@ import logging
 #from django.db import connection #引入数据库的列表
 from django.core.cache import cache
 from django.views.generic import ListView, DetailView
-from silk.profiling.profiler import silk_profile
+#from silk.profiling.profiler import silk_profile
 
 
 from .models import Post,Tag,Category 
@@ -15,8 +15,22 @@ from comment.views import CommentShowMixin
 logger = logging.getLogger(__name__)
 
 
+def cache_it(func):
+    def wrapper(self, *args, **kwargs):
+        key = repr((func.__name__, args, kwargs))
+        result = cache.get(key)
+        if result:
+            print('hi cache')
+            return result
+        print('hi db')
+        result = func(self, *args, **kwargs)
+        cache.set(key, result, 60 * 5)
+        return result
+    return wrapper
+
+
 class CommonMixin(object):
-    @silk_profile(name='get_category_context')
+    @cache_it
     def get_category_context(self):
         categories = Category.objects.filter(status=1)
 
@@ -45,6 +59,7 @@ class CommonMixin(object):
             'hot_posts':hot_posts,
         })
         kwargs.update(self.get_category_context())
+        print(self.get_category_context())
         return super(CommonMixin,self).get_context_data(**kwargs)
 
 

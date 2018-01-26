@@ -32,7 +32,7 @@ class Post(models.Model):
     def status_show(self):
         return '当前状态:%s' %self.status 
     status_show.short_description = '展示状态'
-    
+
     def __unicode__(self):
         return self.title 
     def increase_pv(self):
