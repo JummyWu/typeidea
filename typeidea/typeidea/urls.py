@@ -18,7 +18,7 @@ from blog.api import PostViewSet,CategoryViewSet,TagViewSet,UserViewSet
 from config.views import LinkView  
 from comment.views import CommentView 
 from typeidea import adminx #NOQA
-from .aocomplete import CategoryAutocomplete, TagAutocomplete 
+from .autocomplete import CategoryAutocomplete, TagAutocomplete 
 
 router = routers.DefaultRouter()
 router.register(r'post',PostViewSet)
