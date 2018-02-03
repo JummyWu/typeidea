@@ -28,7 +28,8 @@
 </div>
     {% endfor %}
     
-    {% if page_obj.has_previous %}
+    <div>
+  <!--  {% if page_obj.has_previous %}
         {% if query %}
         <a href="?page={{ page_obj.previous_page_number }}&query={{ query }}">上一页</a>
         {% else %}
@@ -42,8 +43,46 @@
         {% else %}
         <a href="?page={{ page_obj.next_page_number }}">下一页</a>
         {% endif %}
-    {% endif %}
-    
+        {% endif %} -->
+        <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if query %}
+            <li class="page-item">
+                <a class="page-link" href="?page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% else %}1{% endif %}&query={{query}}">
+                    上一页
+                </a>
+            </li>
+            {% for page in page_obj.paginator.page_range %}
+            <li class="page-item {% if page_obj.number == page %}active{% endif %}">
+                <a class="page-link" href="{% if page_obj.number == page %}#!{% else %}?page={{ page }}&query={{ query }}{% endif %}">{{ page }}</a>
+            </li>
+            {% endfor %}
+            <li class="page-item">
+                <a class="page-link" href="?page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% else %}{{ page_obj.paginator.num_pages }}{% endif %}&query={{query}}">
+                    下一页
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% else %}1{% endif %}">
+                    上一页
+                </a>
+            </li>
+            {% for page in page_obj.paginator.page_range %}
+            <li class="page-item {% if page_obj.number == page %}active{% endif %}">
+                <a class="page-link" href="{% if page_obj.number == page %}#!{% else %}?page={{ page }}{% endif %}">{{ page }}</a>
+            </li>
+            {% endfor %}
+            <li class="page-item">
+                <a class="page-link" href="?page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% else %}{{ page_obj.paginator.num_pages }}{% endif %}">
+                    下一页
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+        </nav>
+    </div>
+
     {% else %}
     Empty!!
     {% endif %}
