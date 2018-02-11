@@ -28,9 +28,6 @@ class CommentForm(forms.ModelForm):
             attrs={'class':'form-control','style':'width:60%'}
         )
     )
-
-
-
     content = forms.CharField(
         label='内容',
         max_length=100, 

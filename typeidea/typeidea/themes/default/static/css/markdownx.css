@@ -1,0 +1,262 @@
+.markdownx-widget {
+    border: 1px solid #cccccc;
+    max-height: 500px;
+}
+.fullscreen {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+.markdownx-toolbar {
+    background: #f5f5f5;
+    /* border: 1px solid #cccccc; */
+    border: 0px solid #cccccc;
+    padding: 0px 20px 0px 5px;
+}
+.markdownx-toolbar p {
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 800;
+    font-size: 16px;
+}
+.markdownx-toolbar ul li a span{
+    color: #999999;
+}
+.markdownx-toolbar .active {
+    background: #eeeeee;
+}
+.markdownx-toolbar .active span {
+    color: #333333;
+}
+.markdownx {
+    position: relative;
+    /* display: inline-block; */
+    width: 100%;
+    margin: 0px;
+    /* border: 1px solid #cccccc; */
+    border: 0px solid #cccccc;
+    height: 100%;
+}
+.markdownx .child-left {
+    height: 100%;
+}
+.markdownx .child-right {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.markdownx div {
+    padding: 0px;
+}
+.markdownx .markdownx-editor,
+.markdownx .markdownx-preview {
+    margin-left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    overflow-y:auto;
+}
+.markdownx textarea {
+    resize: none;
+    border: 0px solid;
+    overflow-y: auto;
+}
+.markdownx textarea:focus {
+    border: 1px solid transparent;
+    outline: 1px solid transparent;
+}
+.markdownx .markdownx-preview {
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    font-size: 100%;
+    font-size: 1em;
+    line-height: 1.5em;
+    background: #eeeeee;
+}
+.markdownx .markdownx-preview * {
+    line-height: 1.5
+}
+.markdownx .markdownx-preview a {
+    color: #5b80b2;
+    text-decoration: underline
+}
+.markdownx .markdownx-preview a:visited {
+    color: #0b0080
+}
+.markdownx .markdownx-preview a:hover {
+    color: #0645ad
+}
+.markdownx .markdownx-preview a:active {
+    color: #faa700
+}
+.markdownx .markdownx-preview a:focus {
+    outline: thin dotted
+}
+.markdownx .markdownx-preview a:active,
+.markdownx .markdownx-preview a:hover {
+    outline: 0
+}
+.markdownx .markdownx-preview p {
+    margin: 1em 0;
+    padding: 0;
+    font-size: 16px
+}
+.markdownx .markdownx-preview img {
+    max-width: 100%
+}
+.markdownx .markdownx-preview h1,
+.markdownx .markdownx-preview h2,
+.markdownx .markdownx-preview h3,
+.markdownx .markdownx-preview h4,
+.markdownx .markdownx-preview h5,
+.markdownx .markdownx-preview h6 {
+    color: #111;
+    text-rendering: optimizelegibility;
+    line-height: 1.7;
+    margin: 0 0 15px;
+    font-weight: 700;
+}
+.markdownx .markdownx-preview h1 {
+    font-size: 26px;
+}
+.markdownx .markdownx-preview h2 {
+    font-size: 24px;
+}
+.markdownx .markdownx-preview h3 {
+    font-size: 22px;
+}
+.markdownx .markdownx-preview h4 {
+    font-size: 20px;
+}
+.markdownx .markdownx-preview h5 {
+    font-size: 18px;
+}
+.markdownx .markdownx-preview h6 {
+    font-size: 16px;
+}
+.markdownx .markdownx-preview h4,
+.markdownx .markdownx-preview h5,
+.markdownx .markdownx-preview h6 {
+    font-weight: 700
+}
+.markdownx .markdownx-preview blockquote {
+    color: #666;
+    margin: 0;
+    padding-left: 1.5em;
+    border-left: .5em #eee solid
+}
+.markdownx .markdownx-preview hr {
+    display: block;
+    height: 0;
+    border: 0;
+    font-style: italic;
+    border-bottom: 1px solid #ccc;
+    margin: 20px 0;
+    padding: 0
+}
+.markdownx .markdownx-preview kbd,
+.markdownx .markdownx-preview samp {
+    font-family: monospace,monospace;
+    font-size: 14px
+}
+.markdownx .markdownx-preview pre {
+    margin: 0px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    color: #444
+}
+.markdownx .markdownx-preview pre {
+    white-space: pre;
+    white-space: pre-wrap;
+    word-wrap: break-word
+}
+.markdownx .markdownx-preview code {
+    margin: 0px 4px 0px 4px;
+}
+.markdownx .markdownx-preview pre code {
+    margin: 0px;
+    padding: 0;
+    background: 0 0;
+    border: none
+}
+.markdownx .markdownx-preview b,
+.markdownx .markdownx-preview strong {
+    font-weight: 700
+}
+.markdownx .markdownx-preview dfn {
+    font-style: italic
+}
+.markdownx .markdownx-preview ins {
+    background: #ff9;
+    color: #000;
+    text-decoration: none
+}
+.markdownx .markdownx-preview mark {
+    background: #ff0;
+    color: #000;
+    font-style: italic;
+    font-weight: 700
+}
+.markdownx .markdownx-preview sub,
+.markdownx .markdownx-preview sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline
+}
+.markdownx .markdownx-preview sup {
+    top: -.5em
+}
+.markdownx .markdownx-preview sub {
+    bottom: -.25em
+}
+.markdownx .markdownx-preview ol,
+.markdownx .markdownx-preview ul {
+    margin: 1em 0!important;
+    padding: 0 0 0 2em!important
+}
+.markdownx .markdownx-preview ol li,
+.markdownx .markdownx-preview ul li {
+    font-size: 14px!important;
+    margin-bottom: .75em;
+}
+.markdownx .markdownx-preview li.L0,
+.markdownx .markdownx-preview li.L1,
+.markdownx .markdownx-preview li.L2,
+.markdownx .markdownx-preview li.L3,
+.markdownx .markdownx-preview li.L5,
+.markdownx .markdownx-preview li.L6,
+.markdownx .markdownx-preview li.L7,
+.markdownx .markdownx-preview li.L8 {
+    list-style-type: decimal !important;
+}
+.markdownx .markdownx-preview li p:last-child {
+    margin: 0
+}
+.markdownx .markdownx-preview dd {
+    margin: 0 0 0 2em
+}
+.markdownx .markdownx-preview img {
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+    vertical-align: middle
+}
+.markdownx .markdownx-preview table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+.markdownx .markdownx-preview th {
+    background: 0 0;
+    background: #f8f8f8;
+    font-size: 14px
+}
+.markdownx .markdownx-preview td {
+    vertical-align: top;
+    font-size: 14px
+}

@@ -31,12 +31,16 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
 
+    'markdownx',
+    #'simditor',
+
     'rest_framework',
 
     'xadmin',
     'crispy_forms',
     'reversion',
 
+    'django.forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -135,6 +139,8 @@ TEMPLATES = [
         },
     },
 ]
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
+
 CKEDITOR_CONFIGS = { 
     'default': { 
         'toolbar': 'full', 
@@ -152,6 +158,18 @@ DEFAULT_FILE_STORAGE = 'typeidea.storage.MyStorage'
 REST_FRAMEWORK = {
         'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
         'PAGE_SIZE': 3
+}
+
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'codehilite',
+    'fenced_code',
+]
+MARKDOWNX_MARKDOWN_EXTENSION_CONFIGS = {
+    'codehilite':{
+        'use_pygments': False,
+        'css_class': 'prettyprint linenums',
+    }
+
 }
 #XADMIN_TITLE = 'Typeidea'
 #XADMIN_FOOTER_TITLE = 'Typeidea @ jummy.top'

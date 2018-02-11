@@ -6,7 +6,7 @@ print(packages)
 
 setup(
     name='typeidea',
-    version='0.5',
+    version='0.2',
     decription='Blog System base on Django',
     author='jummy',
     author_email='929440925@qq.com',
@@ -24,6 +24,7 @@ setup(
         'redis==2.10.6',
         'django-ckeditor==5.3.1',
         'django-debug-toolbar==1.9.1',
+        'django-markdownx==2.0.22',
         'mysqlclient==1.3.12',
         'Pillow==5.0.0',
         'xadmin==0.6.1',

@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^category-autocomplete/$', CategoryAutocomplete.as_view(), name="category-autocomplete"),
     url(r'tag-autocomplete/$', TagAutocomplete.as_view(),name="tag-autocomplete"),
     url(r'ckeditor/',include('ckeditor_uploader.urls')),
+    url(r'^markdownx/',include('markdownx.urls')),
     url(r'^api/docs/', include_docs_urls(title='typeidea apis')),
     url(r'^api/',include(router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 

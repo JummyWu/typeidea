@@ -1,0 +1,20 @@
+<div class="markdownx-widget">
+    <div class="collapse navbar-collapse markdownx-toolbar">
+        <p class="navbar-text"><span>Markdown<span></p>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="javascript:;"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></li>
+            <li class=""><a href="javascript:;"><span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span></a></li>
+        </ul>
+    </div>
+    <div class="markdownx row">
+        <div class="col-md-6 child-left">
+            <!-- Django 1.10 and below -->
+            {{ markdownx_editor }}
+            <!-- Django 1.11+ -->
+            {% include 'django/forms/widgets/textarea.html' %}
+        </div>
+        <div class="col-md-6 child-right">
+            <div class="markdownx-preview" id="id_preview"></div>
+        </div>
+    </div>
+</div>
