@@ -1,3 +1,4 @@
+# -*-coding:utf-8 -*-
 import os 
 
 from fabric.api import run, env, roles, prefix, put, cd 
@@ -29,6 +30,7 @@ def deploy(version):
 
     install(version)
 
+    upload_env()
 
     upload_supervisord_conf()
 
@@ -39,7 +41,7 @@ def install(version):
     with prefix('source %s' % ACTIVE_FILE_PATH):
         pip('typeidea', version)
 
-
+#创建虚拟环境
 def ensure_venv():
     if not exists(ACTIVE_FILE_PATH):
         run('virtualenv {}'.format(ENV_PATH))
@@ -49,6 +51,9 @@ def ensure_supervisord():
         result = run('which supervisord', warn_only=True)
         if 'no supervisord' in result:
             pip('supervisor')
+
+def upload_env():
+    put('typeidea/.env','{}/.env'.format(ENV_PATH))
         
 def upload_supervisord_conf():
     put('conf/supervisord.conf', '{}/supervisord.conf'.format(ENV_PATH))

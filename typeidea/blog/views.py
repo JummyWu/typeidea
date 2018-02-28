@@ -20,9 +20,7 @@ def cache_it(func):
         key = repr((func.__name__, args, kwargs))
         result = cache.get(key)
         if result:
-            print('hi cache')
             return result
-        print('hi db')
         result = func(self, *args, **kwargs)
         cache.set(key, result, 60 * 5)
         return result
@@ -59,7 +57,6 @@ class CommonMixin(object):
             'hot_posts':hot_posts,
         })
         kwargs.update(self.get_category_context())
-        print(self.get_category_context())
         return super(CommonMixin,self).get_context_data(**kwargs)
 
 
