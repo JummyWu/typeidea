@@ -22,7 +22,7 @@
 
 <div class="post-element">
     <h3 class="post-element-title">
-        {{ post.title }} -{{ post.pv }}, {{post.uv }}
+        {{ post.title }} -{{ post.pv }}, {{ post.uv }}
     </h3>
     <div>
         <nav class="nav">
@@ -34,7 +34,7 @@
             创建时间:<a class="nav-link post-element-nav" href="#">{{ post.created_time }}</a>
         </nav>
     </div>
-    <article class="content">
+    <article class="content pic">
         {% autoescape off %}
         {{ post.html }}
         {% endautoescape %}
@@ -43,7 +43,7 @@
     {% include 'comment/block.html' %}
 
 </div>
-{% endblock %}
+    {% endblock %}
 {% block javascript %}
 <script src="{% static 'js/prettify.js' %}"></script>
 <script>

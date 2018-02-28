@@ -83,6 +83,9 @@ nav.category a {
 .sidebar a {
     color: #444;
 }
+.pic img{
+    width: 100%;
+}
 .sidebar-title {
     height: 30px;
     background-color: #3d4450;

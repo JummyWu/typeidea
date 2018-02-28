@@ -132,26 +132,27 @@ class PostView(CommonMixin, CommentShowMixin, DetailView):
     
     def get(self, request, *args, **kwargs):
         response = super(PostView, self).get(request, *args, **kwargs)
-        self.pv_uv()
+        self.update_pv_uv()
         return response 
 
-    def pv_uv(self):
+    def update_pv_uv(self):
         #增加pv
         #判断用户，增加uv`
          
         #TODO:判断用户24小时内有没有访问过
         sessionid = self.request.COOKIES.get('sessionid')
+        path = self.request.path 
         if not sessionid:
             return
 
-        pv_key = 'pv:%s:%s' %(sessionid, self.request.path)
-        if not cache.get(pv_key):
-            self.object.increase_pv()
-            cache.set(pv_key, 1, 30)
+        pv_key = 'pv:%s:%s' %(sessionid, path)
+        uv_key = 'uv:%s:%s' %(sessionid, path)
 
-        uv_key = 'uv:%s:%s' %(sessionid, self.request.path)
-        if not cache.get(uv_key):
-            self.object.increase_uv()
+        if not cache.get(pv_key):
+            cache.set(pv_key, 1, 60)
+            self.object.update_pv()
+        elif not cache.get(uv_key):
             cache.set(uv_key, 1, 60 * 60 * 24)
+            self.object.update_uv()
 
 

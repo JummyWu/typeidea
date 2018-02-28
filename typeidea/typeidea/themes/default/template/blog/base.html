@@ -40,17 +40,24 @@
 
     <div class="container main">
         <div class="row">
+            
             <div class="col-9 left-side">
+
                 <div class="inner">
                     {% block content %}
-                {% endblock %}
+                    {% endblock %}
                 </div>
+
             </div>
+
             <div class="col-3 right-side">
+                
                 <div class="inner">
                     {% for side in side_bars %}
+                    
                     <div class="sidebar">
                         <div class="sidebar-title">{{ side.title }} </div>
+                        
                         <div class="sidebar-content">
                             {% if side.display_type == 1 %}
                             {% autoescape off %}
@@ -76,28 +83,33 @@
                             </ul>
                             {% endif %}
                         </div>
+                    
                     </div>
+                    
                     {% endfor %}
+
                 </div>
+
             </div>
         </div>
     </div>
+            <!--    </div> -->
 
-    <footer class="footer">
-        <div class="container">
-            <hr/>
-        <nav class="nav category">
-            {% for cate in cates %}
-            <a href="{% url 'category' cate.id %}">{{ cate.name }}</a>
-            {% endfor %}
-        </nav>
-    </div>
-    <div class="container power">
-        <span class="text-muted">Power by Typeidea@jummy</span>
-    </div>
-    {% block javascript %}
-    {% endblock %}
-</footer>
+            <footer class="footer">
+                <div class="container">
+                    <hr/>
+                    <nav class="nav category">
+                        {% for cate in cates %}
+                        <a href="{% url 'category' cate.id %}">{{ cate.name }}</a>
+                        {% endfor %}
+                    </nav>
+                </div>
+                <div class="container power">
+                    <span class="text-muted">Power by Typeidea@jummy</span>
+                </div>
+                {% block javascript %}
+                {% endblock %}
+            </footer>
 </body>
 
 

@@ -1,21 +1,23 @@
 # coding:utf-8
 
 from .base import * # NOQA
+from decouple import config
 
-
-DEBUG = True
+DEBUG = config('DEBUG',default=True,cast=bool)
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'typeidea_db',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': 3306,
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
         # 'OPTIONS': {'charset': 'utf8mb4'}
     },
 }
+
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",

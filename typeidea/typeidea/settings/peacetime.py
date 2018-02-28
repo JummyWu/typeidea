@@ -1,30 +1,21 @@
 # coding:utf-8
 
 from .base import * # NOQA
+from decouple import config 
 
+DEBUG = config('DEBUG',default=True,cast=bool)
 
-DEBUG = True
-
-DATABASES = {
-    'default':{
-	'ENGINE':'django.db.backends.sqlite3',
-	'NAME':os.path.join(BASE_DIR,'db.sqlite3'),
-    },
-}
-
-'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'typeidea_db',
-        'USER': 'root',
-        'PASSWORD': 'root1234',
-        'HOST': '127.0.0.1',
-        'PORT': 3306,
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
         # 'OPTIONS': {'charset': 'utf8mb4'}
     },
 }
-'''
 
 CACHES = {
     "default": {
