@@ -2,49 +2,58 @@
 
 {% block content %}
 {% if query %}
-你的搜素关键词:{{ query }} 的结果如下
+你的搜索关键词:{{ query }}的结果如下:
 {% endif %}
 {% if posts %}
 {% for post in posts %}
-<div class="post-element">
-    <h3 class="post-element-title">
+<div class="post-top">
+    <h2 class="post-element-title">
         <a href="{% url 'detail' post.id %}">{{ post.title }}</a>
-    </h3>
-    <div>
-        <nav class="nav">
-            分类:<a class="nav-link post-element-nav" href="{% url 'category' post.category_id %}">{{ post.category.name }}</a>
-            标签:{% for tag in post.tags.all %}
-            <a class="nav-link post-element-nav" href="{% url 'tag' tag.id %}">
-                {{ tag.name }}
-            </a>
-            {% endfor %}
-            作者:<a class="nav-link post-element-nav" href="{% url 'author' post.owner_id %}">{{ post.owner.username }}</a>
-            创建时间:<a class="nav-link post-element-nav" href="#">{{ post.created_time }}</a>
-        </nav>
-    </div>
-    <div class="post-element-desc">
-        <p>{{ post.desc }}</p>
+    </h2>
+    <article class="post-element-desc">
+        <p>{{ post.desc }}</p>  
+    </article>
+    <div class="post-message">
+        <ul class="nav nav-pills">
+            <li>
+                <p class="nav-link">
+                <i class="fas fa-user-circle mr-1"></i>
+                <a href="{% url 'author' post.owner_id %}">{{ post.owner.username }}</a>
+                </p>
+            </li>
+            <li>
+                <p class="nav-link">
+                <i class="fas fa-paperclip mr-1"></i>
+                {% for tag in post.tags.all %}
+                <a href="{% url 'tag' tag.id %}">{{ tag.name }}</a>
+                {% endfor %}
+                </p>
+            </li>
+            <li>
+                <p class="nav-link">
+                <i class="fas fa-tags mr-1"></i>
+                <a href="{% url 'category' post.category_id %}">{{ post.category.name }}</a>
+                </p>
+            </li>
+            <li>
+                <p class="nav-link">
+                <i class="fas fa-eye mr-1"></i>
+                {{ post.uv }}
+                </p>
+            </li>
+            <li>
+                <p class="nav-link">
+                <i class="fas fa-calendar mr-1"></i>
+                {{ post.created_time }}
+                </p>
+            </li>
+        </ul>
     </div>
 </div>
-    {% endfor %}
-    
-    <div>
-  <!--  {% if page_obj.has_previous %}
-        {% if query %}
-        <a href="?page={{ page_obj.previous_page_number }}&query={{ query }}">上一页</a>
-        {% else %}
-        <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
-        {% endif %}
-    {% endif %}
-    Page{{ page_obj.number }} of {{ paginator.num_pages }}.
-    {% if page_obj.has_next %}
-        {% if query %}
-        <a href="?page={{ page_obj.next_page_number }}&query={{ query }}">下一页</a>
-        {% else %}
-        <a href="?page={{ page_obj.next_page_number }}">下一页</a>
-        {% endif %}
-        {% endif %} -->
-        <nav aria-label="Page navigation example">
+{% endfor %}
+<!-- 分页 -->
+<div>
+    <nav aria-label="Page navigation example " class="post">
         <ul class="pagination">
             {% if query %}
             <li class="page-item">
@@ -78,12 +87,11 @@
                     下一页
                 </a>
             </li>
-        {% endif %}
-    </ul>
-        </nav>
-    </div>
-
-    {% else %}
-    Empty!!
-    {% endif %}
-    {% endblock %}
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% else %}
+Empty !!
+{% endif %}
+{% endblock %}

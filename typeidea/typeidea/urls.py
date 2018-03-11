@@ -15,6 +15,7 @@ from rest_framework.documentation import include_docs_urls
 
 from blog.views import IndexView, CategoryView, TagView, PostView, AuthorView
 from blog.api import PostViewSet,CategoryViewSet,TagViewSet,UserViewSet 
+from blog.feeds import AllPostRssFeed 
 from config.views import LinkView  
 from comment.views import CommentView 
 from typeidea import adminx #NOQA
@@ -33,6 +34,7 @@ def static(prefix, **kwargs):
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name="index"),
+    url(r'^feed/rss/$',AllPostRssFeed(),name="rss"),
     url(r'^category/(?P<category_id>\d+)/', cache_page(60 * 10)(CategoryView.as_view()), name="category"),
     url(r'^tag/(?P<tag_id>\d+)/$', TagView.as_view(), name="tag"),
     url(r'^post/(?P<pk>\d+)/$', PostView.as_view(), name="detail"),

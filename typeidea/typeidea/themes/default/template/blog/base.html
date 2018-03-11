@@ -1,115 +1,128 @@
 {% load static %}
 <!doctype html>
 <html lang="utf-8">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}"> 
-    {% block style %}
-    {% endblock %}
-    <title>Jummy & Sweet</title>
-</head>
-<body>
-    <header class="fixed-top">
-        <div class="container">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+        {% block style %}
+        {% endblock %}
+        <title>{% block title %} Index {% endblock %}| Jummy & Sweet</title>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8d38738dd8b852c5ac68ca6b15573c00";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+ 
+
+    </head>
+
+    <body>
+        <header class="header-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-9">
+                        <nav class="nav">
+                            <a class="logo" href="/">Typeidea</a>
+                            <a class="index" href="/">首页</a>
+                            {% for cate in nav_cates %}
+                            <a class="link" href="{% url 'category' cate.id %}">{{ cate.name }}</a>
+                            {% endfor %}
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <form action="/" method="GET" class="input-group search">    
+                            <input typt="text" name="query" class="form-control" placeholder="Search for..." aria-label="Search for...">
+                            <span class="input-group-btn">
+                                <input type="submit" class="btn btn-secondary" value="Go!"/>
+                            </span>
+                        </form>    
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container main">
             <div class="row">
                 <div class="col-9">
-                    <nav class="nav">
-                        <a class="logo" href="/">Typeidea</a>
-                        <a class="index" href="/">首页</a>
-
-                        {% for cate in nav_cates %}
-                        <a class="link" href="{% url 'category' cate.id %}">{{ cate.name }}</a>
-                        {% endfor %}
-                    </nav>
-                </div>
-                <div class="col-3">
-                    <form action="/" method="GET" class="input-group search">    
-                        <input typt="text" name="query" class="form-control" placeholder="Search for..." aria-label="Search for...">
-                        <span class="input-group-btn">
-                            <input type="submit" class="btn btn-secondary" value="Go!"/>
-                        </span>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="container main">
-        <div class="row">
-            
-            <div class="col-9 left-side">
-
-                <div class="inner">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-
-            </div>
-
-            <div class="col-3 right-side">
-                
-                <div class="inner">
-                    {% for side in side_bars %}
-                    
-                    <div class="sidebar">
-                        <div class="sidebar-title">{{ side.title }} </div>
-                        
-                        <div class="sidebar-content">
-                            {% if side.display_type == 1 %}
-                            {% autoescape off %}
-                            {{ side.content }}
-                            {% endautoescape %}
-                            {% elif side.display_type == 2 %}
-                            <ul>
-                                {% for post in recently_posts %}
-                                <li><a href="{% url 'detail' post.id %}">{{ post.title }}</a></li>
-                                {% endfor %}
-                            </ul>
-                            {% elif side.display_type == 3 %}
-                            <ul>
-                                {% for post in hot_posts %}
-                                <li><a href="{% url 'detail' post.id %}">{{ post.title }}-{{ post.pv }}</a></li>
-                                {% endfor %}
-                            </ul>
-                            {% elif side.display_type == 4 %}
-                            <ul>
-                                {% for comment in recently_comments %}
-                                <li>{{ comment.context }}</li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                        </div>
-                    
+                    <div class="post-element">
+                        {% block content %}
+                        {% endblock %}	
                     </div>
-                    
-                    {% endfor %}
-
                 </div>
+                <div class="col-3 right-side">
+                    <div class="defer-right">
+                        <div class="inner">
+                            <div class="side-bar">
+                                <i class="fas fa-rss mr-1"></i>
+                                <a href="{% url 'rss' %}">RSS</a>
+                            </div>
+                            {% for side in side_bars %}
 
+                            <div class="side-bar">
+                                <div class="sidebar-title">{{ side.title }} </div>
+
+                                <div class="sidebar-content">
+                                    {% if side.display_type == 1 %}
+                                    {% autoescape off %}
+                                    {{ side.content }}
+                                    {% endautoescape %}
+                                    {% elif side.display_type == 2 %}
+                                    <ul>
+                                        {% for post in recently_posts %}
+                                        <li><a href="{% url 'detail' post.id %}">{{ post.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% elif side.display_type == 3 %}
+                                    <ul>
+                                        {% for post in hot_posts %}
+                                        <li><a href="{% url 'detail' post.id %}">{{ post.title }}-{{ post.pv }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% elif side.display_type == 4 %}
+                                    <ul>
+                                        {% for comment in recently_comments %}
+                                        <li>{{ comment.context }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+
+                            {% endfor %}
+
+                        </div>    
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-            <!--    </div> -->
-
-            <footer class="footer">
-                <div class="container">
-                    <hr/>
-                    <nav class="nav category">
-                        {% for cate in cates %}
-                        <a href="{% url 'category' cate.id %}">{{ cate.name }}</a>
-                        {% endfor %}
-                    </nav>
-                </div>
-                <div class="container power">
-                    <span class="text-muted">Power by Typeidea@jummy</span>
-                </div>
-                {% block javascript %}
-                {% endblock %}
-            </footer>
-</body>
-
+        <div>
+            其他分类:
+            <ul class="nav nav-pills">
+                {% for cate in cates %}
+                <li><a href="{% url 'category' cate.id %}">{{ cate.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+ 	<footer class="copyright-footer">
+ 		<div class="container power">
+ 			<span class="text-muted">Power by Blog@Jummy</span>
+ 		</div>
+ 	</footer> 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ </body>
 

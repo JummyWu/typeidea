@@ -129,10 +129,10 @@ class PostView(CommonMixin, CommentShowMixin, DetailView):
     
     def get(self, request, *args, **kwargs):
         response = super(PostView, self).get(request, *args, **kwargs)
-        self.update_pv_uv()
+        self.pv_uv()
         return response 
 
-    def update_pv_uv(self):
+    def pv_uv(self):
         #增加pv
         #判断用户，增加uv`
          
@@ -143,13 +143,12 @@ class PostView(CommonMixin, CommentShowMixin, DetailView):
             return
 
         pv_key = 'pv:%s:%s' %(sessionid, path)
-        uv_key = 'uv:%s:%s' %(sessionid, path)
-
         if not cache.get(pv_key):
+            self.object.increase_pv()
             cache.set(pv_key, 1, 60)
-            self.object.update_pv()
-        elif not cache.get(uv_key):
-            cache.set(uv_key, 1, 60 * 60 * 24)
-            self.object.update_uv()
 
+        uv_key = 'uv:%s:%s' %(sessionid, path)
+        if not cache.get(uv_key):
+            self.object.increase_uv()
+            cache.set(uv_key, 1, 60 * 60 * 24)
 

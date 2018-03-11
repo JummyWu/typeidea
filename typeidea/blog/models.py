@@ -35,10 +35,11 @@ class Post(models.Model):
 
     def __unicode__(self):
         return self.title 
-    def update_pv(self):
+
+    def increase_pv(self):
         return type(self).objects.filter(id=self.id).update(pv=F('pv') + 1)
 
-    def update_uv(self):
+    def increase_uv(self):
         return type(self).objects.filter(id=self.id).update(uv=F('uv') + 1)
 
     def save(self, *args, **kwargs):

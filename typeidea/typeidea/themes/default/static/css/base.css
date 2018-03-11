@@ -1,108 +1,179 @@
-body {
-    background-color:#ddd;
-    line-height: 1.5;
-    min-height: 100vh;
-    font-size: 100%;
+body{
+  background-color: #fff;
+  line-height: 1.5;
+  min-height: 100vh;
+  font-size: 100%;
 }
-/* 顶部样式 */
-.fixed-top{
-    position: fixed;
-    right:0;
-    left:0;
-    border-width: 0 0 1px;
-    position: absolute;
+/* 顶部 */
+.header-top{
+  position: fixed;
+  right: 0;
+  left: 0;
+  border-width: 0 0 1px;
+  position: absolute;
 }
 header {
-    height: 50px;
-    background-color: #3d4450;
-    border-color: #080808;
-    line-height: 50px;
+  height: 50px;
+  background-color: #ddd;
+  border-color: #ddd;
+  line-height: 50px;
 }
 header nav a {
-    color: #fff;
-    padding: 0 1.5rem ;
+  color: #212529;
+  padding: 0  1.5rem ;
 }
 header nav a:hover {
-    color: #fff;
-    text-decoration: none;
-    background-color: #000;
+	color: #fff;
+	text-decoration: none;
+	background-color: #000;
 }
-header a.logo {
-    font-size:1.5rem;
-    padding-left: 0;
+header a.logo{
+	font-size: 1.5rem;
+	padding-left: 1;
+	padding-right: 1;
 }
 header a.logo:hover {
-    background-color: #3d4450;
+	background-color: #3d4450;
 }
 header .search {
-    margin-top: 5px;
+	margin-top: 5px;
 }
-/* 主题部分 */
-.main .left-side .inner {
-    background-color: #fff;
-    padding: 30px 10px;
+/*详细部分*/
+.main {
+	padding-top: 100px;
+	padding-bottom: 20px;
+	margin-bottom: 80px;
 }
-.main .right-side .inner {
-    background-color: #fff;
+.post-top {
+    padding-top: 20px;
 }
-nav.category a {
-    margin-top: 20px;
-    margin-right: 20px;
-}
-.post-element-nav {
-    padding-top: 0;
-    padding-bottom: 0;
-    color:#428bca;
-}
-.post-element-title{
-    font-size: 25px;
-    border-bottom:1px solid #e8e8e8;
+.post-element {
+	margin-bottom: 40px;
 }
 .post-element-title a {
-    color: #333;
-    text-decoration:none; //去下划线
+	color: #000;
+	font-weight: 700;
+	font-size: 20px;
+	padding-bottom: 8px;
+}
+.post-element-title a:hover {
+	text-decoration: none;
+	color: #72c02c;
 }
 .post-element-desc {
-    padding: 1rem;
+	margin-bottom: 14px;
 }
-.main {
-    margin-top: 100px;
+.post-element-desc p {
+	color: #777;
+	line-height: 1.7rem;
 }
-.main ul {
-    padding-left: 0px;
+.post-message {
+	margin-top: 30px;
+	padding: 13px 0px;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	display: block;
 }
-.post-element article {
-    margin-top: 10px;
+.post-message ul {
+	font-size: 13px;
+	list-style: none;
+	color: #ddd;
 }
-.power{
-    margin-top: 30px;
+.post-message li {
+	color: #777;
+	display: inline-block;
 }
-.sidebar li {
-    list-style: none;
+.post-message p {
+	font-size: 13px;
+	padding: 5px 40px 5px 0px;
+	margin-bottom: 0px;
 }
-.sidebar a {
-    color: #444;
+.post-message a {
+	color: #777;
 }
-.pic img{
-    width: 100%;
+.post-message a:hover {
+	color: #72c02c;
+	text-decoration: none;
 }
-.sidebar-title {
-    height: 30px;
-    background-color: #3d4450;
-    border-color: #080808;
-    line-height: 30px;
-    color: #fff;
-    padding: 0 9px;
+.main .right-side {
+	padding: 0px 15px;
 }
-.sidebar-content {
-    padding: 0 9px;
+.main .right-side .border-left {
+	border-left: 1px solid #eee;
+	padding-bottom: 20px;
 }
-/*脚部分*/
-.footer {
-    text-align: center;
+.main .right-side .inner {
+	padding-left: 20px ;
+	border-left: 1px solid #eee;
 }
-/* 评论 */
-.comment .nickname a {
-    font-size:1.5rem;
+.main .right-side .inner .title {
+	color: #000;
+	font-weight: 600;
+	line-height: 1.4;
+	margin-bottom: 1.4rem;
+	font-size: 1.25rem;
 }
-
+.main .right-side .inner .side-bar {
+	padding-top: 35px;
+	margin-bottom: 35px;
+	border-top: 1px solid #eee;
+}
+.main .right-side .inner .side-bar ul {
+	padding-left: 10px;
+}
+.main .right-side .inner .side-bar li {
+	list-style: none;
+	margin: 3px 0px;
+}
+.main .right-side .inner .side-bar a {
+	color: #777
+}
+.main .right-side .inner .side-bar a:hover {
+	color: #72c02c;
+	text-decoration: none;
+}
+.main .right-side .inner .side-bar .tag {
+	padding-left: 0px;
+}
+.main .right-side .inner .side-bar .tag li {
+	margin-left: 5px;
+	margin-bottom: 0.71rem;
+	display: inline-block;
+	box-sizing: border-box;
+}
+.main .right-side .inner .side-bar .tag a {
+	padding: 0.3rem 1.1rem;
+	background-color: #f7f7f7;
+	border-radius: 50px;
+}
+.main .right-side .inner .side-bar .tag a:hover {
+	background-color: #72c02c;
+	color: #fff;
+}
+.post {
+    padding-top: 50px;
+}
+/*脚部 */
+.nav-pills>li {
+	float: left;
+}
+.nav>li {
+	position: relative;
+	display: block;
+}
+.nav>li>a {
+	position: relative;
+	display: block;
+	padding: 10px 15px;
+	border-radius: 50px;
+	background-color: #eee;
+}
+.nav>li>a:hover {
+	color: #ea6f5a;
+}
+.copyright-footer {
+	padding: 1.4rem 0;
+	text-align: center;
+	box-sizing: border-box;
+}
+ 
