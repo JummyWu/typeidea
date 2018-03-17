@@ -31,7 +31,7 @@ var _hmt = _hmt || [];
         <header class="header-top">
             <div class="container">
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-lg-9 col-xs-6">
                         <nav class="nav">
                             <a class="logo" href="/">Typeidea</a>
                             <a class="index" href="/">首页</a>
@@ -40,7 +40,7 @@ var _hmt = _hmt || [];
                             {% endfor %}
                         </nav>
                     </div>
-                    <div class="col-3">
+                    <div class="col-lg-3 col-xs-6">
                         <form action="/" method="GET" class="input-group search">    
                             <input typt="text" name="query" class="form-control" placeholder="Search for..." aria-label="Search for...">
                             <span class="input-group-btn">
@@ -53,13 +53,13 @@ var _hmt = _hmt || [];
         </header>
         <div class="container main">
             <div class="row">
-                <div class="col-9">
+                <div class="col-9 col-xs-9">
                     <div class="post-element">
                         {% block content %}
                         {% endblock %}	
                     </div>
                 </div>
-                <div class="col-3 right-side">
+                <div class="col-3 col-xs-3 right-side">
                     <div class="defer-right">
                         <div class="inner">
                             <div class="side-bar">
