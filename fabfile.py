@@ -1,7 +1,7 @@
 # -*-coding:utf-8 -*-
-import os 
+import os
 
-from fabric.api import run, env, roles, prefix, put, cd 
+from fabric.api import run, env, roles, prefix, put, cd
 from fabric.contrib.files import exists
 
 env.roledefs = {
@@ -11,8 +11,8 @@ env.roledefs = {
 }
 
 ENV_PATH = '/home/jummy/workspace/typeidea-env'
-ACTIVE_FILE_PATH = os.path.join(ENV_PATH,'bin/activate')
-PYPI_INDEX =  'http://39.108.102.254:8080/simple/'
+ACTIVE_FILE_PATH = os.path.join(ENV_PATH, 'bin/activate')
+PYPI_INDEX = 'http://39.108.102.254:8080/simple/'
 
 
 def pip(package, version=None):
@@ -20,7 +20,7 @@ def pip(package, version=None):
     if version:
         command = command + '{package}=={version}'.format(package=package, version=version)
     else:
-        command = command + package 
+        command = command + package
     run(command)
 
 
@@ -41,42 +41,48 @@ def install(version):
     with prefix('source %s' % ACTIVE_FILE_PATH):
         pip('typeidea', version)
 
-#创建虚拟环境
+
+# 创建虚拟环境
 def ensure_venv():
     if not exists(ACTIVE_FILE_PATH):
         run('virtualenv {}'.format(ENV_PATH))
-        
+
+
 def ensure_supervisord():
     with prefix('source %s' % ACTIVE_FILE_PATH):
         result = run('which supervisord', warn_only=True)
         if 'no supervisord' in result:
             pip('supervisor')
 
+
 def upload_env():
-    put('typeidea/.env','{}/.env'.format(ENV_PATH))
-        
+    put('typeidea/.env', '{}/.env'.format(ENV_PATH))
+
+
 def upload_supervisord_conf():
     put('conf/supervisord.conf', '{}/supervisord.conf'.format(ENV_PATH))
+
 
 def run_supervisord():
     ensure_supervisord()
 
-    result = run('ps aux|grep supervisord | grep -v grep',warn_only=True)
+    result = run('ps aux|grep supervisord | grep -v grep', warn_only=True)
     if result:
         shutdown_supervisord()
-        #return restart_supervisord()
+        # return restart_supervisord()
 
     with prefix('source %s' % ACTIVE_FILE_PATH):
         with cd(ENV_PATH):
             run('supervisord -c supervisord.conf')
-   
+
+
 def restart_supervisord():
     with prefix('source %s' % ACTIVE_FILE_PATH):
         with cd(ENV_PATH):
             run('supervisorctl -c supervisord.conf restart all')
 
+
 def shutdown_supervisord():
     with prefix('source %s' % ACTIVE_FILE_PATH):
         with cd(ENV_PATH):
             run('supervisorctl -c supervisord.conf shutdown')
-

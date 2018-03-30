@@ -1,7 +1,7 @@
 # coding:utf-8
 import os
 
-from decouple import config 
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'enktu0#fiz#8*tv@(^^1ly1$x*d(uasx)8ra2v%u4c@07(4)m*'
+# SECRET_KEY = 'enktu0#fiz#8*tv@(^^1ly1$x*d(uasx)8ra2v%u4c@07(4)m*'
 SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
 
     'markdownx',
-    #'simditor',
+    # 'simditor',
 
     'rest_framework',
 
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #'raven.contrib.django.raven_compat',
+    # 'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE = [
@@ -143,11 +143,11 @@ TEMPLATES = [
 ]
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
-CKEDITOR_CONFIGS = { 
-    'default': { 
-        'toolbar': 'full', 
-        'height': 300, 
-        'width': 800, 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
     },
 }
 CKEDITOR_RESTRICT_BY_USER = True
@@ -158,8 +158,8 @@ CKEDITOR_UPLOAD_PATH = 'article_images'
 DEFAULT_FILE_STORAGE = 'typeidea.storage.MyStorage'
 
 REST_FRAMEWORK = {
-        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-        'PAGE_SIZE': 3
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3
 }
 
 MARKDOWNX_MARKDOWN_EXTENSIONS = [
@@ -167,11 +167,11 @@ MARKDOWNX_MARKDOWN_EXTENSIONS = [
     'fenced_code',
 ]
 MARKDOWNX_MARKDOWN_EXTENSION_CONFIGS = {
-    'codehilite':{
+    'codehilite': {
         'use_pygments': False,
         'css_class': 'prettyprint linenums',
     }
 
 }
-#XADMIN_TITLE = 'Typeidea'
-#XADMIN_FOOTER_TITLE = 'Typeidea @ jummy.top'
+# XADMIN_TITLE = 'Typeidea'
+# XADMIN_FOOTER_TITLE = 'Typeidea @ jummy.top'

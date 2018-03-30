@@ -1,9 +1,9 @@
 # coding:utf-8
 
 from .base import * # NOQA
-from decouple import config 
+from decouple import config
 
-DEBUG = config('DEBUG',default=True,cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 DATABASES = {
     'default': {
@@ -22,6 +22,7 @@ CACHES = {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/4",
         "OPTIONS": {
+            "PASSWORD": config('REDIS_PASSWORD'),
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "PARSER_CLASS": "redis.connection.HiredisParser",
         }
@@ -49,7 +50,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'brief': {
-            'format':'%(asctime)s %(levelname)-8s %(name)-15s %(message)s'
+            'format': '%(asctime)s %(levelname)-8s %(name)-15s %(message)s'
         }
     },
     'handlers': {

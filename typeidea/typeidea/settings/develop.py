@@ -6,10 +6,11 @@ from .base import * # NOQA
 DEBUG = True
 
 DATABASES = {
-    'default':{
-	'ENGINE':'django.db.backends.sqlite3',
-	'NAME':os.path.join(BASE_DIR,'db.sqlite3'),
-    },
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), # NOQA
+
+        },
 }
 
 CACHES = {
@@ -23,27 +24,29 @@ CACHES = {
     }
 }
 
-INSTALLED_APPS += [
+INSTALLED_APPS += [ # NOQA
+
     'debug_toolbar',
-    #'silk',
+    # 'silk',
 ]
 
-MIDDLEWARE += [
+MIDDLEWARE += [# NOQA
+
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    #'silk.middleware.SilkyMiddleware',
+    # 'silk.middleware.SilkyMiddleware',
 ]
 
 INTERNAL_IPS = ['127.0.0.1']
 SILKY_PYTHON_PROFILER = True
 DEBUG_TOOLBAR_CONFIG = {
-    'JQUERY_URL':'//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'
+    'JQUERY_URL': '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'
 }
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
         'brief': {
-            'format':'%(asctime)s %(levelname)-8s %(name)-15s %(message)s'
+            'format': '%(asctime)s %(levelname)-8s %(name)-15s %(message)s'
         }
     },
     'handlers': {

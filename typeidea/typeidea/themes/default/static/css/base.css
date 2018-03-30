@@ -95,6 +95,9 @@ header .search {
 	color: #72c02c;
 	text-decoration: none;
 }
+.post-content img{
+	width: 100%;
+}
 .main .right-side {
 	padding: 0px 15px;
 }
@@ -151,9 +154,16 @@ header .search {
 	color: #fff;
 }
 .post {
-    padding-top: 50px;
+	padding-top: 50px;
 }
 /*脚部 */
+.classify {
+	padding-left: 100px;
+	padding-right: 100px;
+}
+.classify>ul>li {
+	padding:5px 5px;
+}
 .nav-pills>li {
 	float: left;
 }

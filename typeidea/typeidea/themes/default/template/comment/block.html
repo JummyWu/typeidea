@@ -20,24 +20,24 @@
         {% endfor %}
     </ul>
     <!-- 新评论 -->
-    <div id="disqus_thread"></div>
+<div id="disqus_thread" style="margin-top:100px;"></div>
 <script>
-    /**
-     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-     */
-    var disqus_config = function () {
-        this.page.identifier = "{{ post.id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-    };
-    (function() {  // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        
-        s.src = 'https://jummy.disqus.com/embed.js';
-        
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
+function load_err(){
+    document.getElementById('disqus_thread').innerHTML = '<div style="text-align:center;margin:auto;">评论托管于Disqus 大陆内无法常规访问！</div>';
+}
+var disqus_config = function () {
+this.page.url = location.href;
+this.page.identifier = location.pathname;
+};
 
+(function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://jummywu.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    s.setAttribute('onerror', 'load_err()');
+    s.async = true;
+    d.body.appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>

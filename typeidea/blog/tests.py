@@ -5,16 +5,17 @@ from pprint import pprint as pp
 
 from django.contrib.auth.models import User
 from django.db import connection
-from django.db.models import F, Q, Count, Sum
+from django.db.models import F, Q, Sum
 from django.test import TestCase
 from django.text.utils import override_settings
 
-from .models import Category, Post
+from .models import Category
+
 
 class TestCategory(TestCase):
     @override_settings(DEBUG=True)
     def setUp(self):
-        self.user = user = User.objects.create_user('jummy','929440925@qq.com','root1234')
+        self.user = user = User.objects.create_user('jummy', '929440925@qq.com', 'root1234')
         Category.objects.bulk_create([
             Category(name='cate_bulk_%s' % i, owner=user)
             for i in range(10)
@@ -37,8 +38,7 @@ class TestCategory(TestCase):
         categories = Category.objects.values_list('name')
         print(categories)
 
-        categories = Category.objects.values_list('name',flat=True)
+        categories = Category.objects.values_list('name', flat=True)
         print(categories)
         for cate_name in categories:
             print(cate_name)
-        

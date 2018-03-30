@@ -7,7 +7,7 @@ class CustomAdminMarkdownWidget(AdminMarkdownxWidget):
     class Media:
         extend = False
         css = {
-            'all':[
+            'all': [
                 'css/markdownx.css',
                 'css/markdownx-skin/desert.css',
             ]
@@ -17,4 +17,3 @@ class CustomAdminMarkdownWidget(AdminMarkdownxWidget):
             'js/prettify.js',
             'js/markdownx-widget.js',
         ]
-
