@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import markdown
+
 from django.db.models import F
 from django.contrib.auth.models import User
 from django.db import models
@@ -18,7 +19,6 @@ class Post(models.Model):
     desc = models.CharField(max_length=1024, blank=True, verbose_name="摘要")
     category = models.ForeignKey('Category', verbose_name="分类")
     tags = models.ManyToManyField('Tag', related_name="posts", verbose_name="标签")
-
     content = models.TextField(verbose_name="正文", help_text="正文必须为MarkDown格式")
     html = models.TextField(verbose_name="渲染后的数据", default="", help_text="目前支持Markdown格式")
     is_markdown = models.BooleanField(verbose_name="使用markdown格式", default=True)
@@ -26,7 +26,6 @@ class Post(models.Model):
     owner = models.ForeignKey(User, verbose_name="作者")
     pv = models.PositiveIntegerField(default=0, verbose_name="pv")
     uv = models.PositiveIntegerField(default=0, verbose_name="uv")
-
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     def status_show(self):
@@ -36,23 +35,23 @@ class Post(models.Model):
     def __unicode__(self):
         return self.title
 
-    def increase_pv(self):
-        return type(self).objects.filter(id=self.id).update(pv=F('pv') + 1)
+    def increse_pv(self):
+        return type(self).objects.filter(id=self.id).update(pv=F('pv')+ 1)
 
-    def increase_uv(self):
-        return type(self).objects.filter(id=self.id).update(uv=F('uv') + 1)
+    def increse_uv(self):
+        return type(self).objects.filter(id=self.id).update(uv=F('uv')+ 1)
 
     def save(self, *args, **kwargs):
         if self.is_markdown:
             config = {
                 'codehilite': {
                     'use_pygments': False,
-                    'css_class': 'prettyprint linenums',
+                    'css_class': 'prettyprint linenums code-padding',
                 }
             }
             self.html = markdown.markdown(
                 self.content,
-                extensions=['codehilite', 'fenced_code'],
+                extensions=["codehilite", "fenced_code", "nl2br"],
                 extension_configs=config
             )
         else:

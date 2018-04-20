@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-
 import xadmin
 from django.urls import reverse
 from django.utils.html import format_html
@@ -17,7 +16,7 @@ class PostAdmin(BaseOwnerAdmin):
 
     list_display = [
         'title', 'category', 'status_show',
-        'pv', 'uv',
+        'pv', 'uv', 'owner',
         'created_time', 'operator'
     ]
     list_display_links = []
@@ -25,13 +24,16 @@ class PostAdmin(BaseOwnerAdmin):
 
     list_filter = ['category', ]
     search_fields = ['title', 'category__name']
+
     save_on_top = True
     # show_full_result_count = False
+
     actions_on_top = True
     actions_on_bottom = True
 
     # 编辑页面
     save_on_top = True
+
     form_layout = (
         Fieldset(
             "基础信息",

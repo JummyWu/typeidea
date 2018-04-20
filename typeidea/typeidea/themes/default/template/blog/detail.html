@@ -2,20 +2,15 @@
 {% load static %}
 
 {% block style %}
-<link href="{% static 'css/prettify.css' %}" rel="stylesheet">
-<style type="text/css">
-.linenums li {
+<link href="{% static 'css/desert.css' %}" rel="stylesheet">
+<style>
+.linenums li{
     background-color: inherit;
-}
-.breadcrumb-item a {
-    color: #868e96;
-}
-.breadcrumb-item a:hover {
-    color: #bd4147;
 }
 </style>
 {% endblock %}
-{% block title %} {{ post.title }} {% endblock%}
+
+{% block title %} {{ post.title }} {% endblock %}
 
 {% block content %}
 
@@ -26,62 +21,59 @@
         <li class="breadcrumb-item active" aria-current="page">正文</li>
     </ol>
 </nav>
-<div class="post-element">
-    <h4>{{ post.title }}</h4>
+
+<div class="post-elements-title">
+    <h3 class="post-element-title">
+	    {{ post.title }}     
+    </h3>
+
     <div class="post-message">
         <ul class="nav nav-pills">
-            <li>
-                <p class="nav-link">
-                <i class="fas fa-user-circle mr-1"></i>
-                <a href="{% url 'author' post.owner_id %}">{{ post.owner.username }}</a>
-                </p>
-            </li>
-            <li>
-                <p class="nav-link">
-                <i class="fas fa-paperclip mr-1"></i>
-                {% for tag in post.tags.all %}
-                <a href="{% url 'tag' tag.id %}">{{ tag.name }}</a>
-                {% endfor %}
-                </p>
-            </li>
-            <li>
-                <p class="nav-link">
-                <i class="fas fa-tags mr-1"></i>
-                <a href="{% url 'category' post.category_id %}">{{ post.category.name }}</a>
-                </p>
-            </li>
-            <li>
-                <p class="nav-link">
-                <i class="fas fa-eye mr-1"></i>
-                {{ post.uv }}
-                </p>
-            </li>
-            <li>
-                <p class="nav-link">
-                <i class="fas fa-calendar mr-1"></i>
-                {{ post.created_time }}
-                </p>
-            </li>
+	<li><p class="nav-link">
+       	    <i class="fas fa-paperclip mr-1"></i>
+            <a href="{% url 'category' post.category_id %}">{{ post.category.name }}</a>
+	</p></li>
+	<li><p class="nav-link">
+            {% for tag in post.tags.all %}
+	    <i class="fas fa-tags mr-1"></i>
+            <a href="{% url 'tag' tag.id %}">
+                {{ tag.name }}
+            </a>
+            {% endfor %}
+	</p></li>
+	<li><p class="nav-link">
+	    <i class="fas fa-user-circle mr-1"></i>
+            <a href="{% url 'author' post.owner_id %}">{{ post.owner.username }}</a>
+	</p></li>
+	<li><p class="nav-link">
+		<i class="fas fa-eye mr-1"></i>
+		{{ post.uv }}
+	</p></li>
+	<li><p class="nav-link">
+	    <i class="fas fa-calendar mr-1"></i>
+            {{ post.created_time }}
+	</p></li>
         </ul>
     </div>
-    <div class="post-content">
+
+    <article class="content">
         {% autoescape off %}
         {{ post.html }}
         {% endautoescape %}
+    </article>
+	
+    <div class="eof">
+	    <p>---- -- - EOR - -- ----</p>
     </div>
-    <div class="text-center my-4">
-        <p>----- -- - EOF - -- -----</p>
-    </div>
+
     {% include 'comment/block.html' %}
 </div>
-{% endblock  %}
-
+{% endblock %}
 {% block javascript %}
-<script type="text/javascript"></script>
+<script src="{% static 'js/prettify.js' %}"></script>
 <script>
-    window.onload = function(){
-        PR.prettyPrint();
-    }
+window.onload = function(){
+    PR.prettyPrint();
+}
 </script>
 {% endblock %}
-

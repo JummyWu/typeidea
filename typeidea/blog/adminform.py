@@ -1,19 +1,20 @@
 # coding:utf-8
 
-from .widget import CustomAdminMarkdownWidget
-from markdownx.fields import MarkdownxFormField
+# from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from dal import autocomplete
 from django import forms
-# from ckeditor_uploader.widgets import CKEditorUploadingWidget
-# from markdownx.widgets import AdminMarkdownxWidget
 
 from .models import Category, Tag, Post
+from django_ace import AceWidget
 
 
 class PostAdminForm(forms.ModelForm):
     desc = forms.CharField(widget=forms.Textarea, label='摘要', required=False)
-    # content = forms.CharField(widget=CKEditorUploadingWidget(), label='正文', required=True)
-    content = MarkdownxFormField(widget=CustomAdminMarkdownWidget(), label='正文')
+    content = forms.CharField(
+        widget=AceWidget(width="600px", height="300px", mode="python", theme="monokai"),
+        label='正文',
+        # required=False,
+    )
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
         widget=autocomplete.ModelSelect2(url='category-autocomplete'),

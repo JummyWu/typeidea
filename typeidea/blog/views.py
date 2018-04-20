@@ -7,7 +7,6 @@ from django.core.cache import cache
 from django.views.generic import ListView, DetailView
 # from silk.profiling.profiler import silk_profile
 
-
 from .models import Post, Tag, Category
 from config.models import SideBar
 from comment.models import Comment
@@ -46,6 +45,7 @@ class CommonMixin(object):
 
     def get_context_data(self, **kwargs):
         side_bars = SideBar.objects.filter(status=1)
+
         recently_posts = Post.objects.filter(status=1)[:10]
         hot_posts = Post.objects.filter(status=1).order_by('-pv')[:10]
         recently_comments = Comment.objects.filter(status=1)[:10]
@@ -64,16 +64,16 @@ class BasePostsView(CommonMixin, ListView):
     model = Post
     template_name = 'blog/list.html'
     context_object_name = 'posts'
-    paginate_by= 5
+    paginate_by = 5  # 分页
 
 
 def time_it(func):
     import time
 
     def wrapper(*args, **kwargs):
-        start = time.time()# NOQA
+        start = time.time()
         result = func(*args, **kwargs)
-        # print(func.__name__,'cost',time.time() - start)
+        print(func.__name__, 'cost', time.time() - start)
         return result
     return wrapper
 
@@ -85,7 +85,7 @@ class IndexView(BasePostsView):
         logger.info('query:[%s]', query)
         qs = super(IndexView, self).get_queryset()
         if query:
-            qs = qs.filter(title__icontains=query)  # select * from blog_post where title ilike '%query%'
+            qs= qs.filter(title__icontains=query)  # select * from blog_post where title ilike '%query%'
         logger.info('query result:[%s]', qs)
         return qs
 
@@ -134,21 +134,22 @@ class PostView(CommonMixin, CommentShowMixin, DetailView):
         return response
 
     def pv_uv(self):
-        # 增加pv
-        # 判断用户，增加uv`
-
-        # TODO:判断用户24小时内有没有访问过
+        # 添加pv
+        # 判断用户， 添加uv
+        # TODO:判断用户24小时内有没有访问
         sessionid = self.request.COOKIES.get('sessionid')
         path = self.request.path
+
         if not sessionid:
             return
 
-        pv_key = 'pv:%s:%s' %(sessionid, path)
+        pv_key = 'pv:%s:%s' % (sessionid, path)
+        # import pdb; pdb.set_trace()
         if not cache.get(pv_key):
-            self.object.increase_pv()
+            self.object.increse_pv()
             cache.set(pv_key, 1, 60)
 
-        uv_key = 'uv:%s:%s' %(sessionid, path)
+        uv_key = 'uv:%s:%s' % (sessionid, path)
         if not cache.get(uv_key):
-            self.object.increase_uv()
-            cache.set(uv_key, 1, 60 * 60 * 24)
+            self.object.increse_uv()
+            cache.set(uv_key, 1, 60 * 60 *24)

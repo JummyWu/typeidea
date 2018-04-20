@@ -23,10 +23,11 @@ class CommentShowMixin(object):
 
 
 class CommentView(TemplateView):
+    http_method_names= ['post']
     template_name='comment/result.html'
-    http_method_names= ['post', ]
 
     def post(self, request, *args, **kwargs):
+        # TODO:获取path
         comment_form =CommentForm(request.POST)
         target = request.POST.get('target')
 

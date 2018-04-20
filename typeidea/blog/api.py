@@ -48,7 +48,7 @@ class PostViewSet(viewsets.ModelViewSet):
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ('url', 'id', 'name', 'created_time', )
+        fields = ('url', 'id', 'name', 'created_time',)
 
 
 class TagDetailSerializer(serializers.ModelSerializer):
@@ -57,7 +57,7 @@ class TagDetailSerializer(serializers.ModelSerializer):
     def paginated_posts(self, obj):
         posts = obj.posts.all()
         paginator = pagination.PageNumberPagination()
-        page = paginator. paginate_queryset(posts, self.context['request'])
+        page = paginator.paginate_queryset(posts, self.context['request'])
         serializer = PostSerializer(page, many=True, context={'request': self.context['request']})
         return {
             'count': posts.count(),
