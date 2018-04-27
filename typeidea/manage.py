@@ -3,8 +3,8 @@ import os
 import sys
 
 if __name__ == "__main__":
-    profile = os.environ.get('TYPEIDEA_PROFILE','peacetime')
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "typeidea.settings.%s"%profile)
+    profile = os.environ.get('TYPEIDEA_PROFILE', 'product')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "typeidea.settings.%s" % profile)
     try:
         from django.core.management import execute_from_command_line
     except ImportError:
@@ -12,7 +12,7 @@ if __name__ == "__main__":
         # issue is really that Django is missing to avoid masking other
         # exceptions on Python 2.
         try:
-            import django
+            import django # NOQA
         except ImportError:
             raise ImportError(
                 "Couldn't import Django. Are you sure it's installed and "
