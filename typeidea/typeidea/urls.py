@@ -29,7 +29,7 @@ router.register(r'user', UserViewSet)
 
 def statuc(prefix, **kwargs):
     return [
-        url(r'^%s(?P<path>.*)$' %re.escape(prefix.lstrip('/')), serve, kwargs=kwargs)        
+        url(r'^%s(?P<path>.*)$' % re.escape(prefix.lstrip('/')), serve, kwargs=kwargs)        
     ]
 
 
