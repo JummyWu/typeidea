@@ -35,6 +35,9 @@ class Post(models.Model):
     def __unicode__(self):
         return self.title
 
+    def __str__(self):
+        return self.title
+
     def increse_pv(self):
         return type(self).objects.filter(id=self.id).update(pv=F('pv')+ 1)
 
@@ -77,6 +80,9 @@ class Category(models.Model):
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name
 
     class Meta:

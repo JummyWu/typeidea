@@ -6,17 +6,17 @@ from fabric.contrib.files import exists
 
 env.roledefs = {
     'develop': [
-        'jummy@39.108.102.254',
+        'jummy@111.230.25.51',
     ],
 }
 
 ENV_PATH = '/home/jummy/workspace/typeidea-env'
 ACTIVE_FILE_PATH = os.path.join(ENV_PATH, 'bin/activate')
-PYPI_INDEX = 'http://39.108.102.254:8080/simple/'
+PYPI_INDEX = 'http://111.230.25.51:8080/simple/'
 
 
 def pip(package, version=None):
-    command = 'pip install -i {pypi} --trusted-host=39.108.102.254 '.format(pypi=PYPI_INDEX)
+    command = 'pip install -i {pypi} --trusted-host=111.230.25.51 '.format(pypi=PYPI_INDEX)
     if version:
         command = command + '{package}=={version}'.format(package=package, version=version)
     else:
